@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="rgba(0,0,0,.3)">
+    <title>Jquery Calculator</title>
+    <link href="fonts/f2/css/all.css" rel="stylesheet">
+    <script src="jquery/jquery-2.1.1.min.js.download"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+   <style>
+       body{
+        background: rgba(0,0,0,.099);
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        font-size: 20px;
+       }
+       .container{
+           margin: 4% auto;
+           width: 290px;
+           max-width: 90%;
+           background:rgba(0,0,0,.3) ;
+           box-shadow: 5px 5px 20px rgba(0,0,0,.6);
+           padding: 10px;
+           border-radius: 20px;
+           position: relative;
+
+       }
+
+       .Keys, .down{
+           width: 250px;
+           max-width: 90%;
+           margin: 0 8.5%;
+           text-align: center;
+       }
+
+       button{ 
+                padding: 20px ;
+                text-align: center;
+                justify-content: center;
+                background: rgba(0,0,0,.2);
+                width: 22%;
+                display: inline;
+                color: wheat  ;
+                float: left;
+                column-count: 4;
+                border: none;
+                outline: none;
+                margin: 1.32%;
+                font-weight: bold;
+                box-shadow:           6px 6px 6px #cbced1,  -6px -6px 6px rgba(0,0,0,.3) ;
+                border-radius: 12px;
+                font-size: 20px;
+                margin-left: 1,5%;
+           /* box-shadow:  2px 2px 6px rgba(0,0,0,.4),  -6px -6px 6px white ; */
+                transition-duration: .05s;         
+                }
+
+       .Text{
+           color: white;
+           /* background: rgba(0,0,0,.15)   ; */
+           height: 20px;
+           padding: 23px;
+           width: 80%;
+           font-weight: bold;
+           letter-spacing: 3px;
+           margin: 0 auto;
+           border-radius: 12px;
+           font-family: 'Times New Roman', Times, serif;
+           box-shadow:  inset 6px 6px 6px #cbced1, inset -6px -6px 6px rgba(0,0,0,.06);
+           word-break: break-all;
+           overflow-y: auto;
+           padding-top: 14px;
+           padding-bottom: 30px;
+       }
+
+       .Result{
+           color: black;
+           /* background: rgba(0,0,0,.15); */
+           height: 20px;
+           padding: 25px;
+           width: 80%;
+           margin-top: 2%;
+           margin: 2% auto;
+           font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+           box-shadow:  inset 6px 6px 6px #cbced1, inset -6px -6px 6px rgba(0,0,0,.06)  ;
+           border-radius: 12px;
+       }
+
+       .equals{       
+           height: 136px;
+           padding: 10px;
+           width: 21%;
+           }
+      
+       button.active{
+           background: red  ;
+       }
+
+       button:hover{
+           background: rgba(0,0,0,.4);
+           box-shadow: 1px 1px 25px rgba(0,0,0,.4);
+           transform: scale(0.9);
+           
+       }
+       #plus{    
+           position: absolute;
+           top: 78.2%;
+           left: 51%;
+           padding: 18px;
+           width: 17.5%;
+       }
+       #zero{
+           position: absolute;
+           top: 78.2%;
+           left: 11.5%;
+           padding: 18px;
+           width: 17.5%;
+       }
+       #dot{
+           position: absolute;
+           top: 78.2%;
+           left: 31%;
+           padding: 18px;
+           width: 17.5%;
+       }
+
+       h4{
+           text-align: center;
+           font-weight: bold;
+           font-size: 30px;
+           padding: 0px;
+           color:rgba(0,0,0,.1);
+           margin: 0px;
+           text-shadow: 1px 1px 20px rgba(255, 255, 255);
+       }
+
+       @media only screen and (max-width:480px){    
+        button{ 
+                 width: 19%;
+                 margin: 3%;
+                 padding: 14px;
+                 text-align: center;
+                }
+
+        .Keys, .down{
+           width: 90%;
+           margin: 0 6.5%;
+
+       }
+
+       .equals{       
+           height: 120px;
+           padding: 10px;
+           width: 17%;
+           }
+        h4{
+            text-align: center;
+            
+        }
+           #plus{   
+           position: absolute;
+           top: 77%;
+           left: 50%;
+           padding: 16px;
+           width: 16.2%;
+       }
+       #zero{
+        position: absolute;
+           top: 77%;
+           left: 8.5%;
+           padding: 16px;
+           width: 16.2%;
+       }
+       #dot{
+           position: absolute;
+           top: 77%;
+           left: 29%;
+           padding: 16px;
+           width: 16.2%;
+       }
+       .Text{
+                width: 80%;
+       }
+
+       .Result{
+                width: 80%;
+       }
+
+       }
+   </style>
+</head>
+<body>
+    <section class="container"> 
+    <div class = "Text"></div>
+    <div class = "Result"></div>
+    <div class="down">   
+   <button type="button" value="clear" name="clear">CE</button>
+   <button type="button" value="append" name="append">AP</button>
+   <button type="button" value="back" name="back"> <i class="fa fa-backspace"></i> </button>
+
+   </div>
+    <div class = "Keys">
+        <button type="button" value="-" name="numberSub">-</button>
+        <!-- <button type="button" value="%" name="numberPerc" >%</button> -->
+        <button type="button" value="7" name="number7">7</button>
+        <button type="button" value="8" name="number8">8</button>
+        <button type="button" value="9" name="number9">9</button>
+        <button type="button" value="/" name="numberDiv">/</button>
+        <button type="button" value="4" name="number4">4</button>
+        <button type="button" value="5" name="number5">5</button>
+        <button type="button" value="6" name="number6">6</button>
+        <button type="button" value="*" name="numberMul">*</button>
+        <button type="button" value="1" name="number1">1</button>
+        <button type="button" value="2" name="number2">2</button>
+        <button type="button" value="3" name="number3">3</button>
+        <button type="button" value="." name="numberDot" id="dot">.</button>
+         <button type="button" value="0"  name="number0" id="zero">0</button>
+        <button type="button" value="+" name="numberPlus" id="plus">+</button> 
+    
+    </div>
+   
+    <button type="button" value="=" name="equals" class="equals">=</button>
+    <h4>
+        Calculator
+    </h4>
+</section>
+<script>
+    $(".container").hide();
+window.addEventListener('load',(e)=>{
+    $(".container").fadeIn(2000);
+})
+$(document).ready(function() {
+
+        var append = true;       
+        $('.Keys button').on('click', function() {
+            var value = $(this).val();
+            $('.Text').append(value);
+        })
+
+        $("button[name='equals']").on('click', function() {
+            var equal = $('.Text').text();
+            var answer = eval(equal);
+            $('.Result').text(answer);
+            if(append != true){
+                $('.Text').text(answer);
+            }
+        })
+        
+        $('button[name="clear"').on('click', function() {
+            $('.Text').text('');
+            $('.Result').text('');
+        })
+
+        $('button[name="append"').on('click', function(){
+            if(append == true){
+                append = false;
+            }
+            else{
+                append = true;
+            }
+            $(this).toggleClass('active');
+        })
+
+        $('button[name="back"').on('click', function() {
+            var calcu = $('.Text').text();
+            var reMove = calcu.substr(0, calcu.length-1);
+            $('.Text ').text(reMove);
+        })
+
+    });
+
+    
+</script>
+
+</body>
+</html>
